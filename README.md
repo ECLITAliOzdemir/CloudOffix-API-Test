@@ -1,4 +1,3 @@
-
 # CloudOffix CloudConnect API
 
 CloudOffix is usually extended internally via modules, but many of its features and all of its data are also available from the outside for external analysis or integration with various tools. API is easily available over [XML-RPC](http://en.wikipedia.org/wiki/XML-RPC),  [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) or simple http requests.
@@ -13,14 +12,15 @@ This method is used to create a session and also capture uid (user-id) which is 
 
 **Base-URL:** http://demo.cloudoffix.com
 **Content-Type:** application/json
-**Path:** /web/session/authenticate
+**Path:** /web/session/authenticate 
+  
 **Request- Body**:  
 
-    {
-		"params":{
-			"login":"service.user@local",
-			"password":"Qwerty123",
-			"db":"demo.cloudoffix.com"
+	{
+		"params" : {
+		"login":"service.user@local",
+		"password":"Qwerty123",
+		"db":"demo.cloudoffix.com"
 		}
 	}
 **Response Sample:**
