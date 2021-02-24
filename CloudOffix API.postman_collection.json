@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "e621d84f-a389-43e0-821d-90add1200e49",
+		"name": "CloudOffix API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"params\":{\n    \"login\":\"{{Username}}\",\n    \"password\":\"{{Password}}\",\n    \"db\":\"{{InstanceId}}\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/web/session/authenticate",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"web",
+						"session",
+						"authenticate"
+					]
+				},
+				"description": "This method is used to create a session and also capture uid (user-id) which is a required parameter for calling other API methods like create, write etc. If uid parameter of the response is false this means that the authentication failed. Below you can examine the response of a successful call."
+			},
+			"response": []
+		},
+		{
+			"name": "Read (res.partner)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstancId}}\",\n                {{UserId}},\n                \"{{Password}}\",\n                \"res.partner\",\n                \"read\",\n                [1],\n                []\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "Read:<br>\n    param1: [list] -> ids of the objects to read: [1, 2, 3, 4]<br>\n    param2: [list][optional] -> fields of the objects to query: [\"display_name\", \"name\"]<br>"
+			},
+			"response": []
+		},
+		{
+			"name": "Search (res.partner)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}},\n                \"{{Password}}\",\n                \"res.partner\",\n                \"search\",\n                [[\"id\", \"=\", \"3163\"]]\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "**Search:**<br>\nThis method only returns the ids of the object that matches the filter.<br>\n**Params:**<br>\nparam1 (search_domain): [list] -> Query filter. E.g: [[\"name\", \"ilike\", \"john\"], [\"write_date\", \">\", \"2021-01-01\"]]\n<br><br>\nNotes: \n- An empty list can be passed to param1 to return all items without any filter:  E.g []\n- The id list returned can be passed to read method."
+			},
+			"response": []
+		},
+		{
+			"name": "Fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}},\n                \"{{Password}}\",\n                \"res.partner\",\n                \"fields_get\"\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "Returns the fields of a model. Eg. (res.partner)"
+			},
+			"response": []
+		},
+		{
+			"name": "Search Read (res.partner)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}}, \n                \"{{Password}}\", \n                \"res.partner\",\n                \"search_read\",\n                [[\"name\", \"ilike\", \"john\"]],\n                [\"name\", \"create_date\"]\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "**Search_Read**<br>\nThis is the method to get objects not only by ids but also with all their fields if param2 does not ask for spesific fields.<br>\n**Params**:<br>\nparam1 (Search Domain): [list] -> Filter query E.g. [[\"name\", \"ilike\", \"john\"], [\"write_date\", \">\", \"2021-01-01\"]]<br>\nparam2 (Fields): [list] -> Only requested fields are returned in the response: [\"name\", \"email\"]\n<br><br>\nNotlar: \n- An empty list can be passed to param1 to return all items without any filter: E.g []\n- If all available fields are requested then an empty list can be sent for param2. Örn: []"
+			},
+			"response": []
+		},
+		{
+			"name": "Create (res.partner)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}}, \n                \"{{Password}}\", \n                \"res.partner\",\n                \"create\",\n                {\"name\" : \"John Doe\"}\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "**Create**<br>\nCreates the object with the given fields.<br>\n**Params**<br>\nparam1 (fields) [dictionary] -> A key value pair of field names and the values. E.g.: {\"name\" : \"John Doe\"}"
+			},
+			"response": []
+		},
+		{
+			"name": "Write (res.partner)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}}, \n                \"{{Password}}\", \n                \"res.partner\",\n                \"write\",\n                [1],\n                {\"name\" : \"John Doe\"}\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "**Write**<br>\nSets the sent fields to the given objects (ids).<br>\n**Params**<br>\nparam1 (ids): [list] -> List of ids to set fields on. E.g. [1, 2, 3]<br>\nparam2 (fields) [dictionary] -> A key value pair of field names and the values. E.g.: {\"name\" : \"John Doe\"}"
+			},
+			"response": []
+		},
+		{
+			"name": "Unlink (res.partner)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}}, \n                \"{{Password}}\", \n                \"res.partner\",\n                \"unlink\",\n                [1,2,3]\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				},
+				"description": "**Unlink**<br>\nDeletes the object(s) with the given IDs.<br>\n**Params**<br>\nparam1 (fields) [list] -> List of ids to unlink. E.g.: [1,2,3]"
+			},
+			"response": []
+		},
+		{
+			"name": "Error Example",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}},\n                \"{{Password}}\",\n                \"res.partner\",\n                \"unknown_method\",\n                [1000],\n                [\"name\"]\n            ]\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{InstanceId}}/jsonrpc",
+					"protocol": "https",
+					"host": [
+						"{{InstanceId}}"
+					],
+					"path": [
+						"jsonrpc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
