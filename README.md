@@ -15,7 +15,8 @@ This method is used to create a session and also capture uid (user-id) which is 
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /web/session/authenticate  
-**Request- Body (res.partner):**  
+
+**Request Body:**  
 
     {
 		"params":{
@@ -315,3 +316,41 @@ Used for searching object(s) by a filter and reading fields from results through
  **For Example:**<br>
  A list like ["name", "email","country_id"] can be passed to get only these fields.<br>
  An empty list like [] can be passed to get all the fields available.
+ 
+ **Request Body:**  
+
+    {
+        "jsonrpc": "2.0",
+        "method": "call",
+        "params": {
+            "service" : "object",
+            "method" : "execute",
+            "args" : [
+                "demo.cloudoffix.com",
+                {{UserId}}, 
+                "{{Password}}", 
+                "res.partner",
+                "search_read",
+                [["name", "ilike", "john"]],
+                ["name", "create_date"]
+            ]
+        }
+	}
+ **Response Sample:**
+ 
+     {
+        "jsonrpc": "2.0",
+        "id": null,
+        "result": [
+            {
+                "id": 40,
+                "name": "John Doe",
+                "create_date": "2020-09-11 06:59:03"
+            },
+            {
+                "id": 16,
+                "name": "John Farewell",
+                "create_date": "2020-08-27 06:04:30"
+            }
+        ]
+    }
