@@ -1,6 +1,6 @@
 # CloudOffix CloudConnect API
 
-CloudOffix is usually extended internally via modules, but many of its features and all of its data are also available from the outside for external analysis or integration with various tools. API is easily available over [XML-RPC](http://en.wikipedia.org/wiki/XML-RPC),  [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) or simple http requests.
+CloudOffix is usually extended internally via modules, but many of its features and all of its data are also available from the outside for external analysis or integration with various tools. API is easily available over [XML-RPC](http://en.wikipedia.org/wiki/XML-RPC),  [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) or HTTP requests.
 
 Since CloudOffix is simpy fully customizable and extendable platform all base and custom methods can be executed through API.
 
