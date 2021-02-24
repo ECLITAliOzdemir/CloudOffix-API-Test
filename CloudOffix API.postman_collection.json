@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstancId}}\",\n                {{UserId}},\n                \"{{Password}}\",\n                \"res.partner\",\n                \"read\",\n                [1],\n                []\n            ]\n        }\n}",
+					"raw": "{\n        \"jsonrpc\": \"2.0\",\n        \"method\": \"call\",\n        \"params\": {\n            \"service\" : \"object\",\n            \"method\" : \"execute\",\n            \"args\" : [\n                \"{{InstanceId}}\",\n                {{UserId}},\n                \"{{Password}}\",\n                \"res.partner\",\n                \"read\",\n                [1],\n                []\n            ]\n        }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
