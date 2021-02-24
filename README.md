@@ -6,7 +6,9 @@ Since CloudOffix is simpy fully customizable and extendable platform all base an
 
 Please **DO NOT FORGET** to replace "demo.cloudoffix.com" with your instance url.
 
->  ###  Authentication (HTTP)
+## API Paths
+
+###  Authentication (HTTP)
 
 This method is used to create a session and also capture uid (user-id) which is a required parameter for calling other API methods like create, write etc. If uid parameter of the response is false this means that the authentication failed. Below you can examine the response of a successful call.
 
