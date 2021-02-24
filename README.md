@@ -10,9 +10,9 @@ Please **DO NOT FORGET** to replace "demo.cloudoffix.com" with your instance url
 
 This method is used to create a session and also capture uid (user-id) which is a required parameter for calling other API methods like create, write etc. If uid parameter of the response is false this means that the authentication failed. Below you can examine the response of a successful call.
 
-**Base-URL:** http://demo.cloudoffix.com
-**Content-Type:** application/json
-**Path:** /web/session/authenticate 
+**Base-URL:** http://demo.cloudoffix.com  
+**Content-Type:** application/json  
+**Path:** /web/session/authenticate   
   
 **Request- Body**:  
 
