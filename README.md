@@ -1,4 +1,3 @@
-
 # CloudOffix CloudConnect API
 
 CloudOffix is usually extended internally via modules, but many of its features and all of its data are also available from the outside for external analysis or integration with various tools. API is easily available over [XML-RPC](http://en.wikipedia.org/wiki/XML-RPC),  [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) or simple http requests.
@@ -502,7 +501,7 @@ Can be used for deleting object(s) from a Cloudoffix instance.
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (ids,vals)
+**Params:** (ids)
 
 - **ids:**: An array that holds the ids of the records that will be deleted. 
 
