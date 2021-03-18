@@ -296,7 +296,7 @@ Used for searching object(s) by a filter and reading fields from results through
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (filter, fields)
+**Params:** (filter, fields, offset, limit, order)
 
  - **filter**: list of arrays that will be interpreted with [polish notation](https://en.wikipedia.org/wiki/Polish_notation)<br>
  **For example:**<br>
@@ -312,10 +312,15 @@ Used for searching object(s) by a filter and reading fields from results through
  	- \'<='
  	- 'ilike'
  	- 'like'
- - **fields:** list of field names that should be returned for objects.<br>
+ - **fields (optional):** list of field names that should be returned for objects.<br>
  **For Example:**<br>
  A list like ["name", "email","country_id"] can be passed to get only these fields.<br>
- An empty list like [] can be passed to get all the fields available.
+ An empty list like [] can be passed to get all the fields available.<br>
+ - **offset (optional):** Number of records to skip
+ - **limit (optional):** Number of records to get
+ - **order (optional):** Used to sort records asc / desc<br>
+ **Example:**<br>
+ "create_date DESC"
  
  **Request Body:**  
 
@@ -332,7 +337,10 @@ Used for searching object(s) by a filter and reading fields from results through
                 "res.partner",
                 "search_read",
                 [["name", "ilike", "john"]],
-                ["name", "create_date"]
+                ["name", "create_date"],
+                0,
+                0,
+                "create_date DESC"
             ]
         }
 	}
@@ -353,4 +361,174 @@ Used for searching object(s) by a filter and reading fields from results through
                 "create_date": "2020-08-27 06:04:30"
             }
         ]
+    }
+
+### Search (HTTP)
+Used for searching object(s) by a filter and **returns only IDs** of matching results through api.
+
+**Base-URL:** http://demo.cloudoffix.com  
+**Content-Type:** application/json  
+**Path:** /jsonrpc  
+**Params:** (filter, offset, limit, order, count)
+
+ - **filter**: list of arrays that will be interpreted with [polish notation](https://en.wikipedia.org/wiki/Polish_notation)<br>
+ **For example:**<br>
+ ['&', ["name", "ilike", "john"], ["write_date", ">", "2021-01-01"]]<br>
+ **Will be Interpreted as:**<br>
+ name field contains john **AND** write date is after 2021-01-01<br>
+ **Available search operators:**<br>
+ 	- '='
+ 	- '!='
+ 	- 'in'
+ 	- 'not in'
+ 	- \'>='
+ 	- \'<='
+ 	- 'ilike'
+ 	- 'like'
+ - **offset (optional):** Number of records to skip
+ - **limit (optional):** Number of records to get
+ - **order (optional):** Used to sort records asc / desc<br>
+ **Example:**<br>
+ "create_date DESC"<br>
+ - **count (optional):** If sent true only count will be returned
+
+ **Request Body (Example to get only the count):**  
+
+    {
+        "jsonrpc": "2.0",
+        "method": "call",
+        "params": {
+            "service" : "object",
+            "method" : "execute",
+            "args" : [
+                "demo.cloudoffix.com",
+                {{UserId}}, 
+                "{{Password}}", 
+                "res.partner",
+                "search_read",
+                [["name", "ilike", "john"]],
+                0,
+                0,
+                "create_date DESC",
+                true
+            ]
+        }
+	}
+ **Response Sample:**
+ 
+     {
+        "jsonrpc": "2.0",
+        "id": null,
+        "result": 2
+     }
+
+### Create (HTTP)
+Can be used to create object(s) in a Cloudoffix instance.
+
+**Base-URL:** http://demo.cloudoffix.com  
+**Content-Type:** application/json  
+**Path:** /jsonrpc  
+**Params:** (vals)
+
+ - **vals**: An array that contains fields and values
+
+ **Request Body :**  
+
+    {
+        "jsonrpc": "2.0",
+        "method": "call",
+        "params": {
+            "service" : "object",
+            "method" : "execute",
+            "args" : [
+                "{{InstanceId}}",
+                {{UserId}}, 
+                "{{Password}}", 
+                "res.partner",
+                "create",
+                {"name" : "John Doe"}
+            ]
+        }
+    }
+ **Response Sample:**
+ 
+     {
+        "jsonrpc": "2.0",
+        "id": null,
+        "result": 1307
+     }
+
+### Write (HTTP)
+Can be used for editing object(s) in a Cloudoffix instance.
+
+**Base-URL:** http://demo.cloudoffix.com  
+**Content-Type:** application/json  
+**Path:** /jsonrpc  
+**Params:** (ids,vals)
+
+- **ids:**: An array that holds the ids of the records that will be updated. 
+- **vals**: An array that contains fields and values.
+
+ **Request Body :**  
+
+    {
+            "jsonrpc": "2.0",
+            "method": "call",
+            "params": {
+                "service" : "object",
+                "method" : "execute",
+                "args" : [
+                    "{{InstanceId}}",
+                    {{UserId}}, 
+                    "{{Password}}", 
+                    "res.partner",
+                    "write",
+                    [1307],
+                    {"email" : "john.doe@cloudoffix.com"}
+                ]
+            }
+    }
+ **Response Sample :**  
+
+    {
+        "jsonrpc": "2.0",
+        "id": null,
+        "result": true
+    }
+
+### Unlink (HTTP)
+Can be used for deleting object(s) from a Cloudoffix instance.
+
+**Base-URL:** http://demo.cloudoffix.com  
+**Content-Type:** application/json  
+**Path:** /jsonrpc  
+**Params:** (ids,vals)
+
+- **ids:**: An array that holds the ids of the records that will be deleted. 
+
+ **Request Body :**  
+
+    {
+        "jsonrpc": "2.0",
+        "method": "call",
+        "params": {
+            "service" : "object",
+            "method" : "execute",
+            "args" : [
+                "{{InstanceId}}",
+                {{UserId}}, 
+                "{{Password}}", 
+                "res.partner",
+                "unlink",
+                [1307]
+            ]
+        }
+    }
+
+ **Response Sample :**  
+
+    {
+        "jsonrpc": "2.0",
+        "id": null,
+        "result": true
     }
