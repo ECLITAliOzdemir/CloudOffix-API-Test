@@ -94,10 +94,15 @@ Used for reading object(s) from api
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (ids, fields)
-
- - ids: list of object ids that is going to be read from the api.
- - fields: list of field names that should be returned for objects.  
+**Params:** (args)
+ - **First param:** Database instance
+ - **Second param:** User id (uid that is returned from authentication)
+ - **Third param:** Password
+ - **Fourth param:** Model's name (hr.employee, res.partner, project.project, helpdesk ticket etc.)
+ - **Fifth param:** Name of the method to be executed
+ - **Sixth param:** Arguments to be sent to the called method (Read(ids, field names))
+    - ids: list of object ids that is going to be read from the api.
+    - fields: list of field names that should be returned for objects.  
 
 **Request Body:**  
 
@@ -295,29 +300,34 @@ Used for searching object(s) by a filter and reading fields from results through
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (filter, fields, offset, limit, order)
-
- - **filter**: list of arrays that will be interpreted with [polish notation](https://en.wikipedia.org/wiki/Polish_notation)<br>
+**Params:** (args)
+ - **First param:** Database instance
+ - **Second param:** User id (uid that is returned from authentication)
+ - **Third param:** Password
+ - **Fourth param:** Model's name (hr.employee, res.partner, project.project, helpdesk ticket etc.)
+ - **Fifth param:** Name of the method to be executed
+ - **Sixth param:** Arguments to be sent to the called method (Search Read(filter, fields, offset, limit, order))
+    - **filter**: list of arrays that will be interpreted with [polish notation](https://en.wikipedia.org/wiki/Polish_notation)<br>
  **For example:**<br>
  ['&', ["name", "ilike", "john"], ["write_date", ">", "2021-01-01"]]<br>
  **Will be Interpreted as:**<br>
  name field contains john **AND** write date is after 2021-01-01<br>
  **Available search operators:**<br>
- 	- '='
- 	- '!='
- 	- 'in'
- 	- 'not in'
- 	- \'>='
- 	- \'<='
- 	- 'ilike'
- 	- 'like'
- - **fields (optional):** list of field names that should be returned for objects.<br>
+        - '='
+        - '!='
+        - 'in'
+        - 'not in'
+        - \'>='
+        - \'<='
+        - 'ilike'
+        - 'like'
+    - **fields (optional):** list of field names that should be returned for objects.<br>
  **For Example:**<br>
  A list like ["name", "email","country_id"] can be passed to get only these fields.<br>
  An empty list like [] can be passed to get all the fields available.<br>
- - **offset (optional):** Number of records to skip
- - **limit (optional):** Number of records to get
- - **order (optional):** Used to sort records asc / desc<br>
+    - **offset (optional):** Number of records to skip
+    - **limit (optional):** Number of records to get
+    - **order (optional):** Used to sort records asc / desc<br>
  **Example:**<br>
  "create_date DESC"
  
@@ -368,28 +378,34 @@ Used for searching object(s) by a filter and **returns only IDs** of matching re
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (filter, offset, limit, order, count)
 
- - **filter**: list of arrays that will be interpreted with [polish notation](https://en.wikipedia.org/wiki/Polish_notation)<br>
+**Params:** (args)
+ - **First param:** Database instance
+ - **Second param:** User id (uid that is returned from authentication)
+ - **Third param:** Password
+ - **Fourth param:** Model's name (hr.employee, res.partner, project.project, helpdesk ticket etc.)
+ - **Fifth param:** Name of the method to be executed
+ - **Sixth param:** Arguments to be sent to the called method (Search Read(filter, offset, limit, order, count))
+    - **filter**: list of arrays that will be interpreted with [polish notation](https://en.wikipedia.org/wiki/Polish_notation)<br>
  **For example:**<br>
  ['&', ["name", "ilike", "john"], ["write_date", ">", "2021-01-01"]]<br>
  **Will be Interpreted as:**<br>
  name field contains john **AND** write date is after 2021-01-01<br>
  **Available search operators:**<br>
- 	- '='
- 	- '!='
- 	- 'in'
- 	- 'not in'
- 	- \'>='
- 	- \'<='
- 	- 'ilike'
- 	- 'like'
- - **offset (optional):** Number of records to skip
- - **limit (optional):** Number of records to get
- - **order (optional):** Used to sort records asc / desc<br>
+        - '='
+        - '!='
+        - 'in'
+        - 'not in'
+        - \'>='
+        - \'<='
+        - 'ilike'
+        - 'like'
+    - **offset (optional):** Number of records to skip
+    - **limit (optional):** Number of records to get
+    - **order (optional):** Used to sort records asc / desc<br>
  **Example:**<br>
  "create_date DESC"<br>
- - **count (optional):** If sent true only count will be returned
+    - **count (optional):** If sent true only count will be returned
 
  **Request Body (Example to get only the count):**  
 
@@ -427,9 +443,14 @@ Can be used to create object(s) in a Cloudoffix instance.
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (vals)
-
- - **vals**: An array that contains fields and values
+**Params:** (args)
+ - **First param:** Database instance
+ - **Second param:** User id (uid that is returned from authentication)
+ - **Third param:** Password
+ - **Fourth param:** Model's name (hr.employee, res.partner, project.project, helpdesk ticket etc.)
+ - **Fifth param:** Name of the method to be executed
+ - **Sixth param:** Arguments to be sent to the called method (Create(vals))
+    - **vals**: An array that contains fields and values
 
  **Request Body :**  
 
@@ -463,10 +484,15 @@ Can be used for editing object(s) in a Cloudoffix instance.
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (ids,vals)
-
-- **ids:**: An array that holds the ids of the records that will be updated. 
-- **vals**: An array that contains fields and values.
+**Params:** (args)
+ - **First param:** Database instance
+ - **Second param:** User id (uid that is returned from authentication)
+ - **Third param:** Password
+ - **Fourth param:** Model's name (hr.employee, res.partner, project.project, helpdesk ticket etc.)
+ - **Fifth param:** Name of the method to be executed
+ - **Sixth param:** Arguments to be sent to the called method (Write(ids, vals))
+    - **ids:** An array that holds the ids of the records that will be updated. 
+    - **vals** An array that contains fields and values.
 
  **Request Body :**  
 
@@ -501,9 +527,14 @@ Can be used for deleting object(s) from a Cloudoffix instance.
 **Base-URL:** http://demo.cloudoffix.com  
 **Content-Type:** application/json  
 **Path:** /jsonrpc  
-**Params:** (ids)
-
-- **ids:**: An array that holds the ids of the records that will be deleted. 
+**Params:** (args)
+ - **First param:** Database instance
+ - **Second param:** User id (uid that is returned from authentication)
+ - **Third param:** Password
+ - **Fourth param:** Model's name (hr.employee, res.partner, project.project, helpdesk ticket etc.)
+ - **Fifth param:** Name of the method to be executed
+ - **Sixth param:** Arguments to be sent to the called method (Unlink(ids))
+    - **ids:**: An array that holds the ids of the records that will be deleted. 
 
  **Request Body :**  
 
