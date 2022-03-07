@@ -188,7 +188,7 @@ Used for reading object(s) from api
                 "company_name": false,
                 "image": <base64>,
                 "image_small":<base64>,
-                "message_follower_ids": [],
+                "message_follower_ids": [[6,0,[1]]],
                 "message_ids": [],
                 "message_last_post": false,
                 "message_bounce": 0,
